@@ -64,6 +64,7 @@ jobs:
           args: install
       
       # If the App is not deploy in the Servers root directory React needs to know where it is located.
+      #https://create-react-app.dev/docs/deployment/#building-for-relative-paths
       - name: Set package.json homepage
         uses: jossef/action-set-json-field@v1
         with:
