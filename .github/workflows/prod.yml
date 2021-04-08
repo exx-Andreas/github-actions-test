@@ -62,8 +62,19 @@ jobs:
         uses: CultureHQ/actions-yarn@v1.0.1
         with:
           args: install
-      
+
+      - name: Get Major Version
+        run: |
+          # Get original release_tag based on the release event payload
+          export RELEASE_TAG=$(cat $GITHUB_EVENT_PATH | jq '.release.tag_name' | sed -e 's/^"//' -e 's/"$//')
+          echo "Set RELEASE_TAG=$RELEASE_TAG"
+          # Split release_tag by ".", e.g. v2.8.1 -> v2
+          export MAJOR_VERSION=$(echo $RELEASE_TAG | sed s/\\./\\n/g | head -1)
+          echo "Set major_version=$MAJOR_VERSION"
+          echo "major_version=$(echo $MAJOR_VERSION)" >> $GITHUB_ENV
+
       # If the App is not deploy in the Servers root directory React needs to know where it is located.
+      #https://create-react-app.dev/docs/deployment/#building-for-relative-paths
       - name: Set package.json homepage
         uses: jossef/action-set-json-field@v1
         with:
@@ -79,15 +90,6 @@ jobs:
       - name: Show files
         run: ls -la
     
-      - name: Get Major Version
-        run: |
-          # Get original release_tag based on the release event payload
-          export RELEASE_TAG=$(cat $GITHUB_EVENT_PATH | jq '.release.tag_name' | sed -e 's/^"//' -e 's/"$//')
-          echo "Set RELEASE_TAG=$RELEASE_TAG"
-          # Split release_tag by ".", e.g. v2.8.1 -> v2
-          export MAJOR_VERSION=$(echo $RELEASE_TAG | sed s/\\./\\n/g | head -1)
-          echo "Set major_version=$MAJOR_VERSION"
-          echo "major_version=$(echo $MAJOR_VERSION)" >> $GITHUB_ENV
       - name: Deploy on PROD
         uses: JamesIves/github-pages-deploy-action@3.7.1
         if: success() # && ( github.ref == 'refs/heads/prod' )
