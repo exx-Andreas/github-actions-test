@@ -2,7 +2,7 @@
   "name": "github-actions-test",
   "version": "0.2.0",
   "private": true,
-  "homepage": "https://exx-andreas.github.io/github-actions-test",
+  "homepage": "https://exx-andreas.github.io/github-actions-test/v0",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
