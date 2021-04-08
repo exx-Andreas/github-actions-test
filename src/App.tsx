@@ -1,24 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
 function App() {
+
+    const [more, setMore] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <label>TEST LABEL</label>
+      <button onClick={() => setMore(!more)}>TEST BUTTON</button>
+        {more && <div style={{display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "red", width: "100%", height: "100vh", color: "green"}}>
+            <label>!!! JETZT WIRDS WILD  !!!</label>
+        </div>}
     </div>
   );
 }
