@@ -63,6 +63,14 @@ jobs:
         with:
           args: install
       
+      # If the App is not deploy in the Servers root directory React needs to know where it is located.
+      - name: Set package.json homepage
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: package.json
+          field: homepage
+          value: https://exx-andreas.github.io/github-actions-test/${{ env.major_version }}
+      
       - name: Yarn Build
         uses: CultureHQ/actions-yarn@v1.0.1
         with:
