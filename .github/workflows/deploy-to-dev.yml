@@ -62,7 +62,6 @@ jobs:
         with:
           name: build
           path: build
-          if-no-files-found: ls -la
   
   deploy:
     name: Deploy to DEV
