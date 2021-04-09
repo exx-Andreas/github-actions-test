@@ -58,10 +58,11 @@ jobs:
         run: ls -la
         
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: build
-          path: out
+          path: build
+          if-no-files-found: ls -la
   
   deploy:
     name: Deploy to DEV
