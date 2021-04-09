@@ -102,11 +102,9 @@ jobs:
           #COMMIT_MESSAGE: 'Deploy commit $GITHUB_SHA'
           SILENT: false
 
-      - name: Add Release URL to Readme
-        uses: DamianReeves/write-file-action@v1.0
+      - name: Create Release Branch
+        uses: peterjgrainger/action-create-branch@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: ./Readme.md
-          contents: |
-            Release ${{ env.major_version }}
-            https://exx-andreas.github.io/github-actions-test/${{ env.major_version }}
-          write-mode: append
+          branch: ${{ env.major_version }}
