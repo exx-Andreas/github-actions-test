@@ -58,6 +58,16 @@ jobs:
       - name: Show files
         run: ls -la
         
+      - name: Yarn Test
+        uses: CultureHQ/actions-yarn@v1.0.1
+        with:
+          args: test
+        
+      - name: Lint
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: lint
+        
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -70,42 +80,6 @@ jobs:
           name: build
           path: build
           
-  test:
-    name: Test
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: project
-
-      - name: Show files
-        run: ls -la
-        
-      - name: Yarn Test
-        uses: CultureHQ/actions-yarn@v1.0.1
-        with:
-          args: test
-          
-  lint:
-    name: Lint
-    needs: [build]
-    runs-on: ubuntu:latest
-    steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: project
-          
-      - name: Show files
-        run: ls -la
-        
-      - name: Lint
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: lint
-  
   deploy:
     name: Deploy to DEV
     needs: [build]
